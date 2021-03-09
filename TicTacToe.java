@@ -90,8 +90,37 @@ public class TicTacToe {
     /**
      * check diagonals
      * @return true if there is a winning diagonal
+     * disabled if not a square
      */
     public boolean findDiag () {
+        // [0, 0] [0, width-1] [height-1, 0] []
+        int r = 0;
+        int c = 0;
+        while (r < board.getHeight() && c < board.getWidth()) {
+            if (r == board.getHeight()-1) { // c should also be second to last col
+                return true;
+            }
+            if (board.get(r, c) != board.get(r+1, c+1)) {
+                break;
+            }
+            r++;
+            c++;
+        }
+
+        r = 0;
+        c = board.getWidth()-1;
+        while (r < board.getHeight() && c >= 0) {
+            if (c == 0) { 
+                return true;
+            }
+            if (board.get(r, c) != board.get(r+1, c-1)) {
+                System.out.println("break: " + r +", " + c);
+                break;
+            }
+            r++;
+            c--;
+        }
+
         return false;
     }
 

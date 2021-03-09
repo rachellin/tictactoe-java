@@ -17,9 +17,10 @@ public class Main {
 
   public static void main (String[] args) {
       char[][] testBoard = {
-          {'X', 'X', 'O'},
-          {'X', 'X', 'O'},
-          {'X', 'O', 'X'}
+          {'X', 'X', 'X', 'X'},
+          {'O', 'O', 'X', 'O'},
+          {'X', 'X', 'X', 'X'},
+          {'X', 'O', 'X', 'X'}
       };
 
       Board board = new Board(testBoard);
@@ -29,7 +30,7 @@ public class Main {
       String boardStr = board.toString();
       System.out.println(boardStr);
 
-      boolean x = game.findCol();
+      boolean x = game.findDiag();
       System.out.print(x);
   }
 }
