@@ -62,11 +62,28 @@ public class Board {
         }
     }
 
+    /**
+     * get empty spots
+     * @return 2D array of coordinates 
+     */
+    // public int[][] empty () {
+    //     int count = 0;
+    //     return 
+    // }
+
     public char[][] getBoard () {
         return boardArr;
     }
 
     public String toString () {
-        return Arrays.deepToString(boardArr);
+        String str = "";
+        for (int r = 0; r < boardArr.length; r++) {
+            for (int c = 0; c < boardArr[0].length; c++) {
+                str += boardArr[r][c] + " ";
+            }
+            str += "\n";
+        }
+        return str;
+        //return Arrays.deepToString(boardArr);
     }
 }

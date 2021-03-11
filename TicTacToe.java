@@ -38,66 +38,66 @@ public class TicTacToe {
     }
 
     /**
+     * @return winner if there is a winner, return 'Z' if none
      * Check if each item in the rows, columns and diagonals to to see if they equal
      * the current player
      * run after every round 
      */
     public char winner() {
-        char winner = 'X';
-        if (findRow() || findCol() || (board.getHeight() == board.getWidth() && findDiag())) {
-            winner = '?';
-            //TODO: figure out who the winner is 
-        }
+        char winner = 'Z';
+        if (findRow() != 'Z') return findRow();
+        if (findCol() != 'Z') return findCol();
+        if (board.getHeight() == board.getWidth() && findDiag() != 'Z') return findDiag();
         return winner;
     }
 
     /**
      * check rows
-     * @return true if there is a winning row 
+     * @return winner if there is a winning row 
      */
-    public boolean findRow () {
+    public char findRow () {
         for (int r = 0; r < board.getHeight(); r++) {
             for (int c = 0; c < board.getWidth(); c++) {
                 if (c == board.getWidth()-1) {
-                    return true;
+                    return board.get(r, c);
                 }
                 if (board.get(r, c) != board.get(r, c+1)) {
                     break;
                 }
             }
         }
-        return false;
+        return 'Z';
     }
 
     /**
      * check colummns
-     * @return true if there is a winning column
+     * @return winner if there is a winning column
      */
-    public boolean findCol () {
+    public char findCol () {
         for (int c = 0; c < board.getWidth(); c++) {
             for (int r = 0; r < board.getHeight(); r++) {
                 if (r == board.getHeight()-1) {
-                    return true;
+                    return board.get(r, c);
                 }
                 if (board.get(r, c) != board.get(r+1, c)) {
                     break;
                 }
             }
         }
-        return false;
+        return 'Z';
     }
     
     /**
      * check diagonals
-     * @return true if there is a winning diagonal
+     * @return winner if there is a winning diagonal
      * disabled if not a square
      */
-    public boolean findDiag () {
+    public char findDiag () {
         int r = 0;
         int c = 0;
         while (r < board.getHeight() && c < board.getWidth()) {
             if (r == board.getHeight()-1) { // c should also be second to last col
-                return true;
+                return board.get(r, c);
             }
             if (board.get(r, c) != board.get(r+1, c+1)) {
                 break;
@@ -110,17 +110,17 @@ public class TicTacToe {
         c = board.getWidth()-1;
         while (r < board.getHeight() && c >= 0) {
             if (c == 0) { 
-                return true;
+                return board.get(r, c);
             }
             if (board.get(r, c) != board.get(r+1, c-1)) {
-                System.out.println("break: " + r +", " + c);
+                //System.out.println("break: " + r +", " + c);
                 break;
             }
             r++;
             c--;
         }
 
-        return false;
+        return 'Z';
     }
 
     /**
@@ -144,6 +144,26 @@ public class TicTacToe {
         if (player == 'x') player = 'Y';
         else player = 'X';
     }
+
+    /**
+     * user makes move
+     */
+    public void userMove (int r, int c) {
+        if (board.get(r, c) == '-') {
+            board.set(r, c, 'X');
+        } else {
+            System.out.println("This spot is already taken. Please try again.");
+        }
+    }
+
+    /**
+     * computer move 
+     */
+    public void compMove () {
+        // array of all empty spots 
+        
+    }
+
 
     public String toString() {
         return board.toString();

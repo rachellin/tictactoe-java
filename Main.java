@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Main {
   /** First Goal: create a TicTacToe object (t0?) 
@@ -19,12 +20,17 @@ public class Main {
   */
 
   public static void main (String[] args) {
+      // char[][] testBoard = {
+      //     {'X', 'X', 'O', 'X'},
+      //     {'O', 'X', 'X', 'O'},
+      //     {'X', 'O', 'X', 'X'},
+      //     {'O', 'O', 'X', 'X'}
+      // };
       char[][] testBoard = {
-          {'X', 'X', 'X', 'X'},
-          {'O', 'O', 'X', 'O'},
-          {'X', 'X', 'X', 'X'},
-          {'O', 'O', 'X', 'X'}
-      };
+        {'-', 'X', 'X'},
+        {'O', 'X', '-'},
+        {'X', 'O', 'X'},
+    };
 
       Board board = new Board(testBoard);
       //board.fill('X');
@@ -33,7 +39,10 @@ public class Main {
       String boardStr = board.toString();
       System.out.println(boardStr);
 
-      boolean x = game.findDiag();
-      System.out.print(x);
+      char winner = game.winner();
+      System.out.print(winner);
+
+      PlayerX x = new PlayerX(game);
+      x.play();
   }
 }
