@@ -28,7 +28,7 @@ public class PlayerX extends Player {
             String line = input.nextLine();
 
             // take user input until it's a valid format 
-            while (line.length() != 3) {
+            while (!(line.length() == 3 && line.substring(1,2).equals(" ") && line.substring(0,1).matches("[0-9]+") && line.substring(2).matches("[0-9]+"))) { 
                 System.out.println("Your input is not valid. Please try again.\nEnter the coordinates of the spot you wish to place an X on. \n Example: enter 0 1 for coordinate (0, 1)");
                 line = input.nextLine();
             }
@@ -38,7 +38,7 @@ public class PlayerX extends Player {
             coord = coordStream.mapToInt(Integer::parseInt).toArray();
         }
         while (!makeMove(coord[0], coord[1]));
-        
+
         // close Scanner 
         input.close();
     }
