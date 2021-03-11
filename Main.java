@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.List;
+
 public class Main {
   /** First Goal: create a TicTacToe object (t0?) 
   * create two HumanPlayer objects (player1 and player2?) 
@@ -20,7 +23,7 @@ public class Main {
           {'X', 'X', 'X', 'X'},
           {'O', 'O', 'X', 'O'},
           {'X', 'X', 'X', 'X'},
-          {'X', 'O', 'X', 'X'}
+          {'O', 'O', 'X', 'X'}
       };
 
       Board board = new Board(testBoard);

@@ -40,16 +40,16 @@ public class TicTacToe {
     /**
      * Check if each item in the rows, columns and diagonals to to see if they equal
      * the current player
+     * run after every round 
      */
     public char winner() {
         char winner = 'X';
-        //todo
+        if (findRow() || findCol() || (board.getHeight() == board.getWidth() && findDiag())) {
+            winner = '?';
+            //TODO: figure out who the winner is 
+        }
         return winner;
     }
-
-    // row: board.get(r, c) == board.get(r, c+1)
-    // column: board.get(r, c) == board.get(r+1, c)
-    // diagonal: board.get(r, c) == board.get(r+1, c+1);
 
     /**
      * check rows
@@ -93,7 +93,6 @@ public class TicTacToe {
      * disabled if not a square
      */
     public boolean findDiag () {
-        // [0, 0] [0, width-1] [height-1, 0] []
         int r = 0;
         int c = 0;
         while (r < board.getHeight() && c < board.getWidth()) {
@@ -147,14 +146,6 @@ public class TicTacToe {
     }
 
     public String toString() {
-        // String str = "";
-        // for (int r = 0; r < board.getHeight(); r++) {
-        //     for (int c = 0; c < board.getWidth(); c++) {
-        //         str = board.getVal(r, c) + " ";
-        //     }
-        //     str += "\n";
-        // }
-        // return str;
         return board.toString();
     }
 
