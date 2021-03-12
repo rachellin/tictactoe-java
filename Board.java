@@ -62,17 +62,21 @@ public class Board {
         }
     }
 
-    /**
-     * get empty spots
-     * @return 2D array of coordinates 
-     */
-    // public int[][] empty () {
-    //     int count = 0;
-    //     return 
-    // }
-
     public char[][] getBoard () {
         return boardArr;
+    }
+
+    /**
+     * check if the board is full
+     * @return true if the board if completely filled with X and O's
+     */
+    public boolean isFull () {
+        for (char[] row : boardArr) {
+            for (char x : row) {
+                if (x == '-') return false;
+            }
+        }
+        return true;
     }
 
     public String toString () {

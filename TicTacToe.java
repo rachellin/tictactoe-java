@@ -11,7 +11,7 @@ public class TicTacToe {
    * us.
    */
     private Board board;
-    private char player = 'X'; // swap
+    //private char player = 'X'; // swap
 
    /**
    * This Constructor is more for testing.
@@ -21,12 +21,14 @@ public class TicTacToe {
    */
     public TicTacToe (Board b) {
         this.board = b;
+        board.fill('-');
     }
 
     /**
     * Default Constructor sets all spots to '-';
     */
     public TicTacToe() {
+        System.out.println("constructor!");
         board.fill('-');
     }
 
@@ -48,6 +50,7 @@ public class TicTacToe {
         if (findRow() != 'Z') return findRow();
         if (findCol() != 'Z') return findCol();
         if (board.getHeight() == board.getWidth() && findDiag() != 'Z') return findDiag();
+        if (board.isFull()) return 'T';
         return winner;
     }
 
@@ -129,21 +132,6 @@ public class TicTacToe {
      */
     public Board getBoard() {
         return board;
-    }
-
-    /**
-     * get the current player - can be either 'X' or 'Y'
-     */
-    public char getPlayer() {
-        return player;
-    }
-
-    /**
-     * Swaps between 'X' and 'Y'
-     */
-    public void switchPlayer() {
-        if (player == 'x') player = 'Y';
-        else player = 'X';
     }
 
     /**

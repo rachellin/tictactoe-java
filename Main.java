@@ -27,52 +27,52 @@ public class Main {
       //     {'X', 'O', 'X', 'X'},
       //     {'O', 'O', 'X', 'X'}
       // };
-      char[][] testBoard = {
-        {'-', '-', '-'},
-        {'-', '-', '-'},
-        {'-', '-', '-'},
-    };
+    //   char[][] testBoard = {
+    //     {'-', '-', '-'},
+    //     {'-', '-', '-'},
+    //     {'-', '-', '-'},
+    // };
 
-      Board board = new Board(testBoard);
-      //board.fill('X');
+      Board board = new Board(3, 3);
       TicTacToe game = new TicTacToe(board);
+      board.fill('-');
 
       // String boardStr = board.toString();
       // System.out.println(boardStr);
 
-      // char winner = game.winner();
-      // System.out.print(winner);
-
       PlayerX x = new PlayerX(game);
       PlayerO o = new PlayerO(game);
-
-      // System.out.println("\n"+board.toString());
-      // x.play();
-
-      // System.out.println("\n"+board.toString());
-      // o.play();
 
       do {
         System.out.println("\n"+board.toString());
         x.play();
+        pause(500);
 
-        pause(1);
+        if (board.isFull()) {
+          System.out.println("\n"+board.toString());
+        }
 
         System.out.println("\n"+board.toString());
         o.play();
-        pause(1);
-
-        System.out.println(game.winner());
+        pause(500);
       }
       while (game.winner() == 'Z');
 
-      //System.out.println("\n"+board.toString());
+      // announce winner
+      if (game.winner() == 'T') {
+        System.out.println("That was a tie!");
+      } else {
+        if (game.winner() == 'O') {
+          System.out.println("\n"+board.toString());
+        }
+        System.out.println("The winner is " + game.winner() + "!");
+      }
 
   }
 
-  public static void pause (int seconds) {
+  public static void pause (int ms) {
     try { 
-      TimeUnit.SECONDS.sleep(seconds); 
+      TimeUnit.MILLISECONDS.sleep(ms); 
     } 
     catch (InterruptedException e) { 
       e.printStackTrace(); 

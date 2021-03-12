@@ -17,7 +17,6 @@ public class PlayerX extends Player {
     public void play () {
 
         Scanner input = new Scanner(System.in);
-        Stream<String> coordStream;
         Integer r = null, c = null;
 
         do {

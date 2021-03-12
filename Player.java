@@ -10,6 +10,10 @@ public class Player {
         this.symbol = symbol;
     }
 
+    public String toString () {
+        return this.symbol + "";
+    }
+
     /**
      * change spot accordingly after checking the move is valid
      * if move is not valid, return false
