@@ -3,17 +3,11 @@ import java.util.Arrays;
 import java.util.stream.*;
 import java.util.InputMismatchException;
 
-public class PlayerX extends Player {
-    public PlayerX (TicTacToe t) {
+public class HumanPlayer extends Player {
+    public HumanPlayer (TicTacToe t) {
         super(t, 'X');
     }
 
-    // @Override
-    // public void makeMove (int r, int c) {
-    //     System.out.println("hehe override");
-    // }
-
-    // new method that calls makeMove after taking user input
     public void play () {
 
         Scanner input = new Scanner(System.in);
@@ -42,9 +36,6 @@ public class PlayerX extends Player {
 
         }
         while (!makeMove(r, c));
-
-        // close Scanner 
-        //input.close();
     }
 
 

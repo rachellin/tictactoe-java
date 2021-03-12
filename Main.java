@@ -32,42 +32,49 @@ public class Main {
     //     {'-', '-', '-'},
     //     {'-', '-', '-'},
     // };
-
       Board board = new Board(3, 3);
       TicTacToe game = new TicTacToe(board);
-      board.fill('-');
 
-      // String boardStr = board.toString();
-      // System.out.println(boardStr);
-
-      PlayerX x = new PlayerX(game);
-      PlayerO o = new PlayerO(game);
+      HumanPlayer x = new HumanPlayer(game);
+      CompPlayer o = new CompPlayer(game);
 
       do {
-        System.out.println("\n"+board.toString());
-        x.play();
-        pause(500);
+        // welcome message if empty 
+        if (board.isEmpty()) System.out.println("Welcome to Tic Tac Toe!");
 
+        // x plays 
+        if (!board.isFull()) {
+          System.out.println("\n"+board.toString());
+          x.play();
+          pause(500);
+        }
+
+        // o plays 
+        if (!board.isFull()) {
+          System.out.println("\n"+board.toString());
+          o.play();
+          pause(500);
+        }
+
+        // if tie, print board again 
         if (board.isFull()) {
           System.out.println("\n"+board.toString());
         }
 
-        System.out.println("\n"+board.toString());
-        o.play();
-        pause(500);
-      }
-      while (game.winner() == 'Z');
-
-      // announce winner
-      if (game.winner() == 'T') {
-        System.out.println("That was a tie!");
-      } else {
-        if (game.winner() == 'O') {
-          System.out.println("\n"+board.toString());
+        // announce winner
+        if (game.winner() == 'T') {
+          System.out.println("That was a tie!");
+          if (!game.playAgain()) break;
+        } else if (game.winner() == 'O' || game.winner() == 'X'){
+          if (game.winner() == 'O') {
+            System.out.println("\n"+board.toString());
+          }
+          System.out.println("The winner is " + game.winner() + "!");
+          if (!game.playAgain()) break;
         }
-        System.out.println("The winner is " + game.winner() + "!");
-      }
 
+      }
+      while (true);
   }
 
   public static void pause (int ms) {

@@ -41,14 +41,28 @@ public class Board {
         boardArr[x][y] = val;
     }
 
+    /**
+     * get value from board array 
+     * @param x the x-coordinate
+     * @param y the y-coordinate 
+     * @return the value at (x, y)
+     */
     public char get (int x, int y) {
         return boardArr[x][y];
     }
 
+    /**
+     * get width of the board array
+     * @return the length of the 2D array 
+     */
     public int getWidth () {
         return width;
     }
 
+    /**
+     * get height of the board array
+     * @return the length of a row of the 2D array
+     */
     public int getHeight () {
         return height;
     }
@@ -62,6 +76,9 @@ public class Board {
         }
     }
 
+    /**
+     * @return 2D array of the board 
+     */
     public char[][] getBoard () {
         return boardArr;
     }
@@ -78,7 +95,25 @@ public class Board {
         }
         return true;
     }
+    
+    /**
+     * check if the board is empty 
+     * @return true if the board is completely filled with -
+     */
+    public boolean isEmpty () {
+        int counter = 0;
+        for (char[] row : boardArr) {
+            for (char x : row) {
+                if (x == '-') counter++;
+            }
+        }
+        if (counter == width*height) return true;
+        return false;
+    }
 
+    /**
+     * @return string representation of Board
+     */
     public String toString () {
         String str = "";
         for (int r = 0; r < boardArr.length; r++) {

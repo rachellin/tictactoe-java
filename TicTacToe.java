@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Scanner;
 
 /**
  * A class for managing all the rules of TicTacToe and keeping track of the
@@ -37,6 +38,19 @@ public class TicTacToe {
      */
     public void clearBoard() {
         board.fill('-');
+    }
+
+    public boolean playAgain () {
+        Scanner input = new Scanner(System.in);
+        boolean again = false;
+        System.out.println("Enter y to play again, anything else to exit");
+        if (input.next().equals("y")) again = true;
+        if (again) {
+            clearBoard();
+            return true;
+        } 
+        System.out.println("Have a good day!");
+        return false;
     }
 
     /**
