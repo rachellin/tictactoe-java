@@ -61,4 +61,13 @@ public class Player {
         coord = possible.get(index);
         return coord;
     }
+
+    /**
+     * make move and announce (print) the move
+     */
+    public void play () {
+        int[] coord = randomSpot();
+        makeMove(coord[0], coord[1]);
+        System.out.println("Player " + this.symbol + " plays on " + "(" + coord[0] + ", " + coord[1] + ")");
+    }
 }

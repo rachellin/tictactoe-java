@@ -1,6 +1,7 @@
 import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
   /** First Goal: create a TicTacToe object (t0?) 
@@ -27,22 +28,54 @@ public class Main {
       //     {'O', 'O', 'X', 'X'}
       // };
       char[][] testBoard = {
-        {'-', 'X', 'X'},
-        {'O', 'X', '-'},
-        {'X', 'O', 'X'},
+        {'-', '-', '-'},
+        {'-', '-', '-'},
+        {'-', '-', '-'},
     };
 
       Board board = new Board(testBoard);
       //board.fill('X');
       TicTacToe game = new TicTacToe(board);
 
-      String boardStr = board.toString();
-      System.out.println(boardStr);
+      // String boardStr = board.toString();
+      // System.out.println(boardStr);
 
-      char winner = game.winner();
-      System.out.print(winner);
+      // char winner = game.winner();
+      // System.out.print(winner);
 
       PlayerX x = new PlayerX(game);
-      x.play();
+      PlayerO o = new PlayerO(game);
+
+      // System.out.println("\n"+board.toString());
+      // x.play();
+
+      // System.out.println("\n"+board.toString());
+      // o.play();
+
+      do {
+        System.out.println("\n"+board.toString());
+        x.play();
+
+        pause(1);
+
+        System.out.println("\n"+board.toString());
+        o.play();
+        pause(1);
+
+        System.out.println(game.winner());
+      }
+      while (game.winner() == 'Z');
+
+      //System.out.println("\n"+board.toString());
+
+  }
+
+  public static void pause (int seconds) {
+    try { 
+      TimeUnit.SECONDS.sleep(seconds); 
+    } 
+    catch (InterruptedException e) { 
+      e.printStackTrace(); 
+    }
   }
 }

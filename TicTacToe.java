@@ -61,7 +61,7 @@ public class TicTacToe {
                 if (c == board.getWidth()-1) {
                     return board.get(r, c);
                 }
-                if (board.get(r, c) != board.get(r, c+1)) {
+                if ((board.get(r, c) != board.get(r, c+1)) || board.get(r, c) == '-') {
                     break;
                 }
             }
@@ -79,7 +79,7 @@ public class TicTacToe {
                 if (r == board.getHeight()-1) {
                     return board.get(r, c);
                 }
-                if (board.get(r, c) != board.get(r+1, c)) {
+                if ((board.get(r, c) != board.get(r+1, c)) || board.get(r, c) == '-') {
                     break;
                 }
             }
@@ -99,7 +99,7 @@ public class TicTacToe {
             if (r == board.getHeight()-1) { // c should also be second to last col
                 return board.get(r, c);
             }
-            if (board.get(r, c) != board.get(r+1, c+1)) {
+            if ((board.get(r, c) != board.get(r+1, c+1)) || board.get(r, c) == '-') {
                 break;
             }
             r++;
@@ -112,7 +112,7 @@ public class TicTacToe {
             if (c == 0) { 
                 return board.get(r, c);
             }
-            if (board.get(r, c) != board.get(r+1, c-1)) {
+            if (board.get(r, c) != board.get(r+1, c-1) || board.get(r, c) == '-') {
                 //System.out.println("break: " + r +", " + c);
                 break;
             }
@@ -120,6 +120,7 @@ public class TicTacToe {
             c--;
         }
 
+        System.out.println("no diag");
         return 'Z';
     }
 
