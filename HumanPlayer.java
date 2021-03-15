@@ -4,8 +4,8 @@ import java.util.stream.*;
 import java.util.InputMismatchException;
 
 public class HumanPlayer extends Player {
-    public HumanPlayer (TicTacToe t) {
-        super(t, 'X');
+    public HumanPlayer (TicTacToe t, char symbol) {
+        super(t, symbol, true);
     }
 
     public void play () {

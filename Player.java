@@ -1,6 +1,7 @@
 public class Player {
     private TicTacToe t;
     private char symbol;
+    private boolean human;
 
     /**
      * constructor for Player 
@@ -8,9 +9,10 @@ public class Player {
      * @param symbol char symbol for the player 
      * @param human boolean true if the player is human, false if not 
      */
-    public Player (TicTacToe t, char symbol) {
+    public Player (TicTacToe t, char symbol, boolean human) {
         this.t = t;
         this.symbol = symbol;
+        this.human = human;
     }
 
     /**
@@ -25,6 +27,14 @@ public class Player {
      */
     public char getSymbol () {
         return this.symbol;
+    }
+
+    /**
+     * check if the player is human
+     * @return boolean human property 
+     */
+    public boolean isHuman () {
+        return this.human;
     }
 
     /**

@@ -22,7 +22,6 @@ public class TicTacToe {
    */
     public TicTacToe (Board b) {
         this.board = b;
-        board.fill('-');
     }
 
     /**
@@ -87,7 +86,7 @@ public class TicTacToe {
     }
 
     /**
-     * check colummns
+     * check columns
      * @return winner if there is a winning column
      */
     public char findCol () {
@@ -137,7 +136,6 @@ public class TicTacToe {
             c--;
         }
 
-        System.out.println("no diag");
         return 'Z';
     }
 

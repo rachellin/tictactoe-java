@@ -21,60 +21,83 @@ public class Main {
   */
 
   public static void main (String[] args) {
-      // char[][] testBoard = {
-      //     {'X', 'X', 'O', 'X'},
-      //     {'O', 'X', 'X', 'O'},
-      //     {'X', 'O', 'X', 'X'},
-      //     {'O', 'O', 'X', 'X'}
-      // };
+    char[][] testBoard = {
+        {'X', 'X', 'X', 'O'},
+        {'X', 'O', 'X', 'X'},
+        {'X', '-', 'X', 'X'},
+        {'O', 'O', 'X', 'X'}
+    };
     //   char[][] testBoard = {
     //     {'-', '-', '-'},
     //     {'-', '-', '-'},
     //     {'-', '-', '-'},
     // };
-      Board board = new Board(3, 3);
-      TicTacToe game = new TicTacToe(board);
 
-      HumanPlayer x = new HumanPlayer(game);
-      CompPlayer o = new CompPlayer(game);
+    Board board = new Board(testBoard);
+    TicTacToe game = new TicTacToe(board);
 
-      do {
-        // welcome message if empty 
-        if (board.isEmpty()) System.out.println("Welcome to Tic Tac Toe!");
+    CompPlayer x = new CompPlayer(game, 'X');
 
-        // x plays 
-        if (!board.isFull()) {
-          System.out.println("\n"+board.toString());
-          x.play();
-          pause(500);
-        }
+    int[] y = x.findRow(board);
+    System.out.println(y[0] + ", " + y[1]);
 
-        // o plays 
-        if (!board.isFull()) {
-          System.out.println("\n"+board.toString());
-          o.play();
-          pause(500);
-        }
+    //runGame();
+      
+  }
 
-        // if tie, print board again 
-        if (board.isFull()) {
-          System.out.println("\n"+board.toString());
-        }
+  public static void runGame () {
+    Board board = new Board(3, 3);
+    TicTacToe game = new TicTacToe(board);
 
-        // announce winner
-        if (game.winner() == 'T') {
-          System.out.println("That was a tie!");
-          if (!game.playAgain()) break;
-        } else if (game.winner() == 'O' || game.winner() == 'X'){
-          if (game.winner() == 'O') {
-            System.out.println("\n"+board.toString());
-          }
-          System.out.println("The winner is " + game.winner() + "!");
-          if (!game.playAgain()) break;
-        }
+    // human vs human
+    // HumanPlayer x = new HumanPlayer(game, 'X');
+    // HumanPlayer o = new HumanPlayer(game, 'O');
 
+    // human vs comp
+    // HumanPlayer x = new HumanPlayer(game, 'X');
+    //CompPlayer o = new CompPlayer(game, 'O');
+
+    // comp vs comp
+    CompPlayer x = new CompPlayer(game, 'X');
+    CompPlayer o = new CompPlayer(game, 'O');
+
+    do {
+      // welcome message if empty 
+      if (board.isEmpty()) System.out.println("Welcome to Tic Tac Toe!");
+
+      // x plays 
+      if (!board.isFull()) {
+        System.out.println("\n"+board.toString());
+        x.play();
+        pause(500);
       }
-      while (true);
+
+      // o plays 
+      if (!board.isFull()) {
+        System.out.println("\n"+board.toString());
+        o.play();
+        pause(500);
+      }
+
+      // if tie, print board again 
+      if (board.isFull()) {
+        System.out.println("\n"+board.toString());
+      }
+
+      // announce winner
+      if (game.winner() == 'T') {
+        System.out.println("That was a tie!");
+        if ((!x.isHuman() && !o.isHuman()) || !game.playAgain()) break; // only ask to play again if human player exists 
+      } else if (game.winner() == 'O' || game.winner() == 'X'){
+        if (game.winner() == 'O') {
+          System.out.println("\n"+board.toString());
+        }
+        System.out.println("The winner is " + game.winner() + "!");
+        if ((!x.isHuman() && !o.isHuman()) || !game.playAgain()) break;
+      }
+
+    }
+    while (true);
   }
 
   public static void pause (int ms) {
