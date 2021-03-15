@@ -21,27 +21,18 @@ public class Main {
   */
 
   public static void main (String[] args) {
-    char[][] testBoard = {
-        {'O', 'X', 'O', '-'},
-        {'O', 'X', 'X', 'O'},
-        {'O', 'O', 'X', 'X'},
-        {'X', 'O', 'O', 'X'}
-    };
+    // char[][] testBoard = {
+    //     {'X', 'X', 'X', 'O'},
+    //     {'X', 'O', '-', 'O'},
+    //     {'O', 'O', 'X', '-'},
+    //     {'O', 'O', 'X', 'X'}
+    // };
     //   char[][] testBoard = {
     //     {'-', '-', '-'},
     //     {'-', '-', '-'},
     //     {'-', '-', '-'},
     // };
-
-    Board board = new Board(testBoard);
-    TicTacToe game = new TicTacToe(board);
-
-    CompPlayer x = new CompPlayer(game, 'X');
-
-    int[] y = x.findDiag(board);
-    System.out.println(y[0] + ", " + y[1]);
-
-    //runGame();
+    runGame();
       
   }
 
@@ -50,16 +41,20 @@ public class Main {
     TicTacToe game = new TicTacToe(board);
 
     // human vs human
-    // HumanPlayer x = new HumanPlayer(game, 'X');
-    // HumanPlayer o = new HumanPlayer(game, 'O');
+    //HumanPlayer x = new HumanPlayer(game, 'X');
+    //HumanPlayer o = new HumanPlayer(game, 'O');
 
     // human vs comp
     // HumanPlayer x = new HumanPlayer(game, 'X');
-    //CompPlayer o = new CompPlayer(game, 'O');
+    // CompPlayer o = new CompPlayer(game, 'O', false);
 
     // comp vs comp
-    CompPlayer x = new CompPlayer(game, 'X');
-    CompPlayer o = new CompPlayer(game, 'O');
+    // CompPlayer x = new CompPlayer(game, 'X', false);
+    // CompPlayer o = new CompPlayer(game, 'O', false);
+
+    // human vs AI
+    HumanPlayer x = new HumanPlayer(game, 'X');
+    CompPlayer o = new CompPlayer(game, 'O', true);
 
     do {
       // welcome message if empty 
@@ -75,7 +70,7 @@ public class Main {
       // o plays 
       if (!board.isFull()) {
         System.out.println("\n"+board.toString());
-        o.play();
+        o.play(board);
         pause(500);
       }
 

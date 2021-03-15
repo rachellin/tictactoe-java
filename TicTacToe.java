@@ -22,13 +22,13 @@ public class TicTacToe {
    */
     public TicTacToe (Board b) {
         this.board = b;
+        board.fill('-');
     }
 
     /**
     * Default Constructor sets all spots to '-';
     */
     public TicTacToe() {
-        System.out.println("constructor!");
         board.fill('-');
     }
 
