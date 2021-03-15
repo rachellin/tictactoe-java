@@ -69,59 +69,85 @@ public class CompPlayer extends Player {
         coord[1] = -1;
         return coord;
     }
-    // have to account for there being 3 X's but one O
 
     /**
      * check columns
-     * @return winner if there is a winning column
+     * @return int array of coord if there is an almost-winning column
      */
-    public char findCol (Board board) {
+    public int[] findCol (Board board) {
+        int counter = 0;
+        boolean empty = false;
+        int[] coord = new int[2];
         for (int c = 0; c < board.getWidth(); c++) {
+            counter = 0;
+            empty = false;
             for (int r = 0; r < board.getHeight(); r++) {
-                if (r == board.getHeight()-1) {
-                    return board.get(r, c);
-                }
-                if ((board.get(r, c) != board.get(r+1, c)) || board.get(r, c) == '-') {
-                    break;
+                if (board.get(r, c) == 'X') { // temp hardcode to be X
+                    counter++;
+                } else if (board.get(r, c) == '-') {
+                    empty = true;
+                    coord[0] = r;
+                    coord[1] = c;
                 }
             }
+            if (counter == board.getHeight()-1 && empty) {
+                return coord;
+            } 
         }
-        return 'Z';
+        coord[0] = -1;
+        coord[1] = -1;
+        return coord;
     }
     
     /**
      * check diagonals
-     * @return winner if there is a winning diagonal
+     * @return int array of coord if there is an almost-winning diagonal
      * disabled if not a square
      */
-    public char findDiag (Board board) {
+    public int[] findDiag (Board board) {
+        int counter = 0;
+        boolean empty = false;
+        int[] coord = new int[2];
+
         int r = 0;
         int c = 0;
         while (r < board.getHeight() && c < board.getWidth()) {
-            if (r == board.getHeight()-1) { // c should also be second to last col
-                return board.get(r, c);
-            }
-            if ((board.get(r, c) != board.get(r+1, c+1)) || board.get(r, c) == '-') {
-                break;
+            if (board.get(r, c) == 'X') {
+                counter++;
+                System.out.println("counter: " +counter);
+            } else if (board.get(r, c) == '-') {
+                empty = true;
+                coord[0] = r;
+                coord[1] = c;
+            } 
+            if (r == board.getHeight()-1 && empty) {
+                return coord;
             }
             r++;
             c++;
         }
 
         r = 0;
+        counter = 0;
+        empty = false;
         c = board.getWidth()-1;
         while (r < board.getHeight() && c >= 0) {
-            if (c == 0) { 
-                return board.get(r, c);
+            if (board.get(r, c) == 'X') {
+                counter++;
+            } else if (board.get(r, c) == '-') {
+                empty = true;
+                coord[0] = r;
+                coord[1] = c;
             }
-            if (board.get(r, c) != board.get(r+1, c-1) || board.get(r, c) == '-') {
-                //System.out.println("break: " + r +", " + c);
-                break;
+            if (r == board.getHeight()-1 & empty) {
+                return coord;
             }
             r++;
             c--;
         }
-        
-        return 'Z';
+
+        coord[0] = -1;
+        coord[1] = -1;
+        return coord;
     }
 }

@@ -22,10 +22,10 @@ public class Main {
 
   public static void main (String[] args) {
     char[][] testBoard = {
-        {'X', 'X', 'X', 'O'},
-        {'X', 'O', 'X', 'X'},
-        {'X', '-', 'X', 'X'},
-        {'O', 'O', 'X', 'X'}
+        {'O', 'X', 'O', '-'},
+        {'O', 'X', 'X', 'O'},
+        {'O', 'O', 'X', 'X'},
+        {'X', 'O', 'O', 'X'}
     };
     //   char[][] testBoard = {
     //     {'-', '-', '-'},
@@ -38,7 +38,7 @@ public class Main {
 
     CompPlayer x = new CompPlayer(game, 'X');
 
-    int[] y = x.findRow(board);
+    int[] y = x.findDiag(board);
     System.out.println(y[0] + ", " + y[1]);
 
     //runGame();
