@@ -34,32 +34,28 @@ public class CompPlayer extends Player {
     /**
      * make move and announce (print) the move
      */
-    public void play () {
-        int[] coord = randomSpot(); 
-        makeMove(coord[0], coord[1]);
-        System.out.println("Player " + this.getSymbol() + " plays on " + "(" + coord[0] + ", " + coord[1] + ")");
-    }
-
     public void play (Board board) { // only if AI
         int[] coord = randomSpot();
         char opponent = 'X';
         if (this.getSymbol() == 'X') opponent = 'O';
         if (AI) {
-            // block win 
-            if (findWin(board, opponent)[0] >= 0) {
-                coord = findWin(board, opponent);
-                System.out.println("win blocked");
-            }
             // take win
             if (findWin(board, this.getSymbol())[0] >= 0) {
                 coord = findWin(board, this.getSymbol());
                 System.out.println("win taken");
+            } else if (findWin(board, opponent)[0] >= 0) {
+                // block win 
+                coord = findWin(board, opponent);
+                System.out.println("win blocked");
+            } else if (useStrat(board)[0] >= 0) {
+                // use strats 
+                coord = useStrat(board);
+                System.out.println("strat used");
             }
         }
         makeMove(coord[0], coord[1]);
         System.out.println("Player " + this.getSymbol() + " plays on " + "(" + coord[0] + ", " + coord[1] + ")");
     }
-    // is overloading functions necessary - only bc board is only needed if AI
 
     /**
      * check if there is an almost win
@@ -183,4 +179,80 @@ public class CompPlayer extends Player {
         coord[1] = -1;
         return coord;
     }
+
+    // implement strategies
+    public int[] useStrat (Board board) {
+        // takeCorner until no more corners - when strat stops working or is done, move to the next
+        if (takeCorner(board)[0] >= 0) return takeCorner(board);
+        return new int[]{-1, -1};
+    }
+
+    // take 3 corners
+    public int[] takeCorner (Board board) {
+        int[][] possible = {
+            {0, 0},
+            {0, board.getWidth()-1},
+            {board.getHeight()-1, 0},
+            {board.getHeight()-1, board.getWidth()-1}
+        };
+
+        for (int i = 0; i < possible.length; i++) {
+            if (board.get(possible[i][0], possible[i][1]) == '-') {
+                return possible[i];
+            }
+        }
+
+        return new int[]{-1, -1};
+    }
+
+    // 3+4: only for odd number rows + colums, r + c are the same 
+    // return 2D array of all the coords for the L
+    public int[] makeL (Board board) {
+        // middle left column, middle bottom column, 
+        // one of corners or the middle = corner of the L
+        // middle spots = ends of the L
+
+        int[][] corners = { // and the center
+            {0, 0},
+            {0, board.getWidth()-1},
+            {board.getHeight()-1, 0},
+            {board.getHeight()-1, board.getWidth()-1},
+            {board.getHeight()/2, board.getWidth()/2}
+        };
+
+        int[][] middles = { // clockwise from top middle
+            {0, board.getWidth()/2},
+            {board.getHeight()/2, board.getWidth()-1},
+            {board.getHeight()-1, board.getWidth()/2},
+            {board.getHeight()/2, 0}
+        };
+
+        // check if combo is L: use corner --> if top/bottom and left/right has the symbol
+        // take ends first
+        ArrayList<int[]> ends = new ArrayList<int[]>();
+        for (int i = 0; i < middles.length; i++) {
+            if (board.get(middles[i][0], middles[i][1]) == '-') {
+                ends.add(middles[i]);
+            }
+        }
+        if (ends.size() > 0) {
+            int random = (int)(Math.random()*ends.size());
+            return ends.get(random);
+        }
+
+        // take corner/centers of the L
+        ArrayList<int[]> centers = new ArrayList<int[]>();
+        for (int i = 0; i < corners.length; i++) {
+            if (board.get(corners[i][0], corners[i][1]) == '-') {
+                ends.add(corners[i]);
+            }
+        }
+        if (centers.size() > 0) {
+            int random = (int)(Math.random()*centers.size());
+            return centers.get(random);
+        }
+
+        return new int[]{-1, -1};
+    }
+
 }
