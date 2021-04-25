@@ -19,5 +19,5 @@ Human vs. "AI" (take wins, block wins, use 3-corners strategy)
 
 ## Installation
 Clone this repository 
-`java Main.java`
+```java Main.java```
 Play the game in your terminal!
