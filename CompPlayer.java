@@ -34,7 +34,7 @@ public class CompPlayer extends Player {
     /**
      * make move and announce (print) the move
      */
-    public void play (Board board) { // only if AI
+    public void play (Board board) { 
         int[] coord = randomSpot();
         char opponent = 'X';
         if (this.getSymbol() == 'X') opponent = 'O';
@@ -183,7 +183,14 @@ public class CompPlayer extends Player {
     // implement strategies
     public int[] useStrat (Board board) {
         // takeCorner until no more corners - when strat stops working or is done, move to the next
-        if (takeCorner(board)[0] >= 0) return takeCorner(board);
+        if (takeCorner(board)[0] >= 0) {
+            //System.out.println("takeCorner");
+            return takeCorner(board);
+        }
+        // if (makeL(board)[0] >= 0) {
+        //     System.out.println("makeL");
+        //     return makeL(board);
+        // }
         return new int[]{-1, -1};
     }
 
@@ -197,16 +204,21 @@ public class CompPlayer extends Player {
         };
 
         for (int i = 0; i < possible.length; i++) {
+            // take corner 
             if (board.get(possible[i][0], possible[i][1]) == '-') {
                 return possible[i];
-            }
-        }
+            } 
+        }   
 
         return new int[]{-1, -1};
     }
 
-    // 3+4: only for odd number rows + colums, r + c are the same 
-    // return 2D array of all the coords for the L
+    /**
+     * make L strategy 
+     * STILL A WORK IN PROGRESS
+     * @param board
+     * @return int array of coordinates 
+     */
     public int[] makeL (Board board) {
         // middle left column, middle bottom column, 
         // one of corners or the middle = corner of the L
@@ -240,17 +252,49 @@ public class CompPlayer extends Player {
             return ends.get(random);
         }
 
-        // take corner/centers of the L
-        ArrayList<int[]> centers = new ArrayList<int[]>();
+        // take corner of the L (the centers)
         for (int i = 0; i < corners.length; i++) {
+            int counter = 0;
             if (board.get(corners[i][0], corners[i][1]) == '-') {
-                ends.add(corners[i]);
+                if (corners[i][0] > 0) {
+                    // check top and bottom
+                    if (board.get(corners[i][0]-1, corners[i][1]) == this.getSymbol() || board.get(corners[i][0]+1, corners[i][1]) == this.getSymbol()) {
+                        counter++;
+                    }
+                } else if (corners[i][0] == board.getHeight()-1) {
+                    // check top only 
+                    if (board.get(corners[i][0]-1, corners[i][1]) == this.getSymbol()) {
+                        counter++;
+                    }
+                } else if (corners[i][0] == 0) {
+                    // check bottom only 
+                    if (board.get(corners[i][0]+1, corners[i][1]) == this.getSymbol()) {
+                        counter++;
+                    }
+                }
+                if (corners[i][1] > 0) {
+                    // check left and right
+                    if (board.get(corners[i][0], corners[i][1]-1) == this.getSymbol() || board.get(corners[i][0], corners[i][1]+1) == this.getSymbol()) {
+                        counter++;
+                    }
+                } else if (corners[i][1] == board.getWidth()-1) {
+                    // check left only
+                    if (board.get(corners[i][0], corners[i][1]-1) == this.getSymbol()) {
+                        counter++;
+                    }
+                } else if (corners[i][1] == 0) {
+                    // check right only
+                    if (board.get(corners[i][0], corners[i][1]+1) == this.getSymbol()) {
+                        counter++;
+                    }
+                }
+            }
+            if (counter == 2) {
+                return corners[i];
             }
         }
-        if (centers.size() > 0) {
-            int random = (int)(Math.random()*centers.size());
-            return centers.get(random);
-        }
+        // maybe i can make something like an object to make the Ls
+
 
         return new int[]{-1, -1};
     }

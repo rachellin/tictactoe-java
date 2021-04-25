@@ -33,6 +33,7 @@ public class Main {
     //     {'-', '-', '-'},
     // };
     runGame();
+
       
   }
 
@@ -53,6 +54,7 @@ public class Main {
     // CompPlayer o = new CompPlayer(game, 'O', false);
 
     // human vs AI
+    // AI can block wins, take wins when it detects one, and use the take-3-corners strategy
     HumanPlayer x = new HumanPlayer(game, 'X');
     CompPlayer o = new CompPlayer(game, 'O', true);
 
