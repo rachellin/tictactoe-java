@@ -18,6 +18,6 @@ Human vs. "AI" (take wins, block wins, use 3-corners strategy)
 - allow user to decide on grid size during the game (as opposed to changing the size in the Main class file)
 
 ## Installation
-Clone this repository 
-```java Main.java```
+Clone this repository\
+`java Main.java`\
 Play the game in your terminal!
